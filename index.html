@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matterstack FDI · Materials Intelligence Map. Primary VC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--surface3:#e8edf5;
+  --border:#e2e8f0;--border-mid:#cbd5e1;
+  --text:#0f172a;--text-mid:#334155;--text-muted:#64748b;--text-faint:#94a3b8;
+  --accent:#6366f1;--accent-light:#eef2ff;--accent-mid:#c7d2fe;--accent-dark:#4338ca;
+  --high:#059669;--high-bg:#d1fae5;--high-dark:#065f46;
+  --med:#d97706;--med-bg:#fef3c7;--med-dark:#92400e;
+  --low:#64748b;--low-bg:#f1f5f9;--low-dark:#334155;
+  --tag-bg:#eef2ff;--tag-text:#4338ca;--tag-border:#c7d2fe;
+  --hiring-bg:#fdf4ff;--hiring-text:#7e22ce;--hiring-border:#e9d5ff;
+  --oss-bg:#f0fdf4;--oss-text:#166534;--oss-border:#bbf7d0;
+  --hw-bg:#fff7ed;--hw-text:#9a3412;--hw-border:#fed7aa;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:200;}
+.header-left{display:flex;align-items:center;gap:20px;}
+.logo{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text);letter-spacing:-.01em;text-decoration:none;cursor:pointer;}
+.logo-mark{width:22px;height:22px;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;}
+.hdiv{width:1px;height:20px;background:var(--border);}
+.header-context{font-size:11px;color:var(--text-muted);font-family:'DM Mono',monospace;letter-spacing:.02em;}
+.header-right{display:flex;gap:32px;align-items:center;}
+.hstat{text-align:right;}
+.hstat-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:var(--text);line-height:1;}
+.hstat-lbl{font-size:9px;color:var(--text-faint);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.fdi-badge{background:var(--accent-light);color:var(--accent-dark);border:1px solid var(--accent-mid);border-radius:4px;padding:4px 10px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:'DM Mono',monospace;}
+.page{max-width:1380px;margin:0 auto;padding:32px 40px 100px;}
+
+/* SEGMENT TILES (HOME) */
+.home-header{margin-bottom:28px;}
+.home-title{font-size:22px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.home-desc{font-size:13px;color:var(--text-muted);line-height:1.5;}
+.segment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.segment-tile{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 28px 24px;cursor:pointer;min-height:160px;transition:all .15s;position:relative;overflow:hidden;}
+.segment-tile:hover{border-color:var(--accent-mid);box-shadow:0 6px 28px rgba(99,102,241,.12);transform:translateY(-2px);}
+.segment-tile.star{border-left:3px solid var(--accent);}
+.tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.tile-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;}
+.tile-counts{display:flex;gap:8px;align-items:center;}
+.tile-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);background:var(--surface2);padding:2px 7px;border-radius:10px;}
+.tile-high-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--high-dark);background:var(--high-bg);padding:2px 7px;border-radius:10px;}
+.tile-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.tile-desc{font-size:12px;color:var(--text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.tile-arrow{position:absolute;right:18px;bottom:18px;color:var(--text-faint);font-size:14px;transition:transform .15s;}
+.segment-tile:hover .tile-arrow{transform:translateX(3px);color:var(--accent);}
+
+/* BREADCRUMB */
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:12px;}
+.breadcrumb a{color:var(--accent);text-decoration:none;font-weight:500;cursor:pointer;}
+.breadcrumb a:hover{text-decoration:underline;}
+.breadcrumb span{color:var(--text-faint);}
+
+/* SHARED CARD STYLES (from reference) */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:28px;gap:0;}
+.tab{padding:12px 24px;font-size:13px;font-weight:500;letter-spacing:.03em;cursor:pointer;background:transparent;border:none;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--accent-dark);border-bottom-color:var(--accent);font-weight:600;}
+.tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--surface2);color:var(--text-muted);font-size:10px;font-weight:600;margin-left:6px;font-family:'DM Mono',monospace;}
+.tab.active .tab-count{background:var(--accent-light);color:var(--accent-dark);}
+.sec-head{margin-bottom:20px;}
+.sec-eyebrow{font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:5px;}
+.sec-title{font-size:19px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.sec-desc{font-size:13px;color:var(--text-muted);line-height:1.5;}
+.filter-area{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:20px;}
+.filter-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.filter-row:last-child{margin-bottom:0;}
+.filter-group-label{font-size:9px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);min-width:100px;flex-shrink:0;}
+.fpill{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border-mid);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .12s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.fpill:hover{border-color:var(--accent);color:var(--accent-dark);}
+.fpill.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.filter-divider{height:1px;background:var(--border);margin:10px 0;}
+.search-row{display:flex;align-items:center;gap:10px;}
+.search-wrap{position:relative;flex:1;max-width:280px;}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text-faint);pointer-events:none;}
+.search-input{width:100%;padding:6px 10px 6px 30px;border:1px solid var(--border-mid);border-radius:6px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);outline:none;transition:border .12s;}
+.search-input:focus{border-color:var(--accent);}
+.results-count{font-size:11px;color:var(--text-muted);font-family:'DM Mono',monospace;margin-left:auto;}
+.company-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
+.company-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:box-shadow .12s,border-color .12s;position:relative;overflow:hidden;}
+.company-card:hover{box-shadow:0 4px 20px rgba(99,102,241,.1);border-color:var(--accent-mid);}
+.company-card.open{border-color:var(--accent);box-shadow:0 4px 24px rgba(99,102,241,.15);}
+.card-tier-bar{height:2px;width:100%;}
+.card-tier-bar.high{background:var(--high);}
+.card-tier-bar.med{background:var(--med);}
+.card-tier-bar.low{background:var(--border-mid);}
+.card-body{padding:16px 18px;}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.card-identity{display:flex;align-items:center;gap:10px;}
+.card-favicon{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);object-fit:cover;background:var(--surface2);flex-shrink:0;}
+.card-favicon-fallback{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--accent-dark);flex-shrink:0;}
+.card-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.2;}
+.card-domain{font-size:10px;color:var(--text-faint);font-family:'DM Mono',monospace;margin-top:1px;}
+.tier-badge{padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+.tier-badge.high{background:var(--high-bg);color:var(--high-dark);}
+.tier-badge.med{background:var(--med-bg);color:var(--med-dark);}
+.tier-badge.low{background:var(--low-bg);color:var(--low-dark);}
+.card-category{font-size:10px;color:var(--text-muted);margin-bottom:10px;}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;}
+
+.trend-wrap{display:inline;position:relative;}
+.trend-arrow{font-weight:700;padding:0 2px;}
+.trend-arrow.up{color:#059669;}
+.trend-arrow.down{color:#dc2626;}
+.trend-arrow.flat{color:#d97706;}
+.trend-bubble{display:none;position:fixed;width:340px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.15);padding:12px 14px;z-index:9999;pointer-events:none;}
+.tb-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.tb-body{font-size:10px;color:var(--text-mid);line-height:1.5;margin-bottom:6px;}
+.tb-src{font-size:9px;color:var(--text-faint);font-family:'DM Mono',monospace;border-top:1px solid var(--border);padding-top:6px;}
+
+.src-wrap{display:inline;position:relative;margin-left:4px;}
+.src-btn{display:inline-block;font-size:8px;font-family:'DM Mono',monospace;color:var(--text-faint);background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:0 4px;line-height:1.6;vertical-align:middle;}
+.src-btn:hover{color:var(--accent-dark);border-color:var(--accent-mid);background:var(--accent-light);}
+.src-pop{display:none;position:fixed;width:320px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.15);padding:10px 12px;z-index:9999;}
+.src-pop-text{font-size:10px;color:var(--text-mid);line-height:1.5;}
+
+
+.opp-dots-wrap{position:relative;display:inline-flex;align-items:center;}
+.opp-bubble{display:none;position:fixed;width:360px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.15);padding:12px 14px;z-index:9999;}
+.opp-bubble-text{font-size:11px;color:var(--text-mid);line-height:1.55;}
+
+.detail-inner ul,.gtm-thesis-box ul{margin:10px 0 0 0;padding-left:28px;list-style:none;}
+.detail-inner ul li,.gtm-thesis-box ul li{font-size:12px;color:var(--text-mid);line-height:1.6;margin-bottom:8px;position:relative;padding-left:12px;}
+.detail-inner ul li::before,.gtm-thesis-box ul li::before{content:'';position:absolute;left:-8px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent);}
+.detail-inner ul li strong,.gtm-thesis-box ul li strong{color:var(--text);font-weight:600;}
+.detail-inner ul li strong{color:var(--text);font-weight:600;}
+.signal-section{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);}
+.signal-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+.signal-label{font-size:10px;color:var(--text-muted);min-width:130px;flex-shrink:0;}
+.signal-dots{display:flex;gap:4px;}
+.sdot{width:8px;height:8px;border-radius:50%;}
+.sdot.filled{background:var(--accent);}
+.sdot.distress-filled{background:#dc2626;}
+
+.sdot.empty{background:var(--border-mid);}
+.signal-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.signal-tag{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:500;white-space:nowrap;border:1px solid;}
+.signal-tag.positive{background:#f0fdf4;color:#166534;border-color:#bbf7d0;}
+.signal-tag.negative{background:#fdf4ff;color:#7e22ce;border-color:#e9d5ff;}
+.signal-tag.neutral{background:var(--surface2);color:var(--text-muted);border-color:var(--border);}
+.tag[title]{position:relative;}
+.tag[title]:hover{opacity:0.85;}
+.tag{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:500;white-space:nowrap;border:1px solid;}
+.tag.stack{background:var(--tag-bg);color:var(--tag-text);border-color:var(--tag-border);}
+.tag.hiring{background:var(--hiring-bg);color:var(--hiring-text);border-color:var(--hiring-border);}
+.tag.oss{background:var(--oss-bg);color:var(--oss-text);border-color:var(--oss-border);}
+.tag.hw{background:var(--hw-bg);color:var(--hw-text);border-color:var(--hw-border);}
+.tag.neutral{background:var(--surface2);color:var(--text-muted);border-color:var(--border);}
+.card-footer{padding:10px 18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-network{font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:5px;}
+.ndot{width:18px;height:18px;border-radius:50%;background:var(--accent-light);border:1.5px solid var(--surface);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:var(--accent-dark);margin-left:-4px;}
+.ndot:first-child{margin-left:0;}
+.card-expand-btn{font-size:10px;color:var(--accent);font-weight:500;display:flex;align-items:center;gap:4px;}
+.card-expand-btn svg{width:12px;height:12px;transition:transform .15s;}
+.company-card.open .card-expand-btn svg{transform:rotate(180deg);}
+.detail-panel{display:none;border-top:1px solid var(--border);background:var(--bg);}
+.company-card.open .detail-panel{display:block;}
+.detail-inner{padding:20px 18px;}
+.detail-section{margin-bottom:20px;}
+.detail-section:last-child{margin-bottom:0;}
+.detail-section-title{font-size:9px;font-family:'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.detail-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.detail-rows{display:flex;flex-direction:column;gap:7px;}
+.detail-row{display:flex;align-items:flex-start;gap:8px;}
+.detail-label{font-size:11px;color:var(--text-muted);min-width:130px;flex-shrink:0;padding-top:1px;}
+.detail-val{font-size:11px;color:var(--text-mid);flex:1;line-height:1.5;}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;}
+.contact-card-top{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;}
+.contact-avatar{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-muted);flex-shrink:0;border:1px solid var(--border);}
+.contact-info{flex:1;min-width:0;}
+.contact-name{font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;}
+.contact-title{font-size:10px;color:var(--text-muted);margin-top:1px;}
+.contact-type-badge{font-size:8px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:3px;white-space:nowrap;}
+.contact-type-badge.technical{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+.contact-type-badge.business{background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;}
+.contact-connections{border-top:1px solid var(--border);padding:8px 12px;background:var(--bg);display:flex;flex-direction:column;gap:5px;}
+.contact-conn-row{display:flex;align-items:center;gap:7px;}
+.conn-avatar{width:20px;height:20px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:var(--accent-dark);flex-shrink:0;}
+.conn-name{font-size:10px;color:var(--text-mid);font-weight:500;}
+.conn-strength{font-size:8px;padding:1px 6px;border-radius:3px;font-weight:600;margin-left:auto;}
+.conn-strength.warm{background:#dcfce7;color:#166534;}
+.conn-strength.possible{background:#fef9c3;color:#854d0e;}
+.placeholder-note{font-size:10px;color:var(--text-faint);font-style:italic;padding:8px 10px;background:var(--surface2);border-radius:5px;border:1px dashed var(--border-mid);}
+@media(max-width:768px){.header{padding:0 16px;flex-wrap:wrap;height:auto;padding:10px 16px;}.page{padding:16px 16px 60px;}.company-grid{grid-template-columns:1fr;}.segment-grid{grid-template-columns:1fr;}}
+
+/* NETWORK MAP */
+
+
+.network-person-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;cursor:pointer;transition:border-color .12s;}
+.network-person-card:hover,.network-person-card.active{border-color:var(--accent);}
+.network-person-card.active{background:var(--accent-light);}
+.npc-name{font-size:13px;font-weight:600;color:var(--text);}
+.npc-title{font-size:10px;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.npc-count{font-size:10px;font-family:'DM Mono',monospace;color:var(--accent);margin-top:4px;font-weight:500;}
+.network-connections{flex:1;}
+.nc-empty{font-size:12px;color:var(--text-faint);font-style:italic;padding:20px;text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <a class="logo" onclick="goHome()">
+      <div class="logo-mark"><svg viewBox="0 0 12 12"><polyline points="2,9 6,3 10,9"/></svg></div>
+      Primary VC
+    </a>
+    <div class="hdiv"></div>
+    <span class="header-context">FDI · Matterstack Materials Intelligence Map</span>
+  </div>
+  <div class="header-right">
+    <div class="hstat"><div class="hstat-val">7</div><div class="hstat-lbl">Segments</div></div>
+    <div class="hstat"><div class="hstat-val">27</div><div class="hstat-lbl">Companies</div></div>
+    <div class="hstat"><div class="hstat-val" style="color:var(--high)">13</div><div class="hstat-lbl">High Priority</div></div>
+    <div class="hdiv"></div>
+    <span class="fdi-badge">FDI Draft</span>
+  </div>
+</header>
+
+<div class="page">
+  <!-- HOME VIEW (segment tiles) -->
+  <div id="view-home">
+    <div class="tabs" style="margin-bottom:24px;">
+      <button class="tab active" id="home-tab-segments" onclick="switchHomeTab('segments')">Company Intel <span class="tab-count">27</span></button>
+      <button class="tab" id="home-tab-network" onclick="switchHomeTab('network')">Network Map</button>
+    </div>
+
+    <div id="home-view-segments">
+    <div class="sec-head">
+      <div class="sec-eyebrow">All Segments</div>
+      <div class="sec-title">Materials Intelligence Map</div>
+      <div class="sec-desc">Competitive analysis across 7 product segments for Matterstack's FDI motion. Select a segment to explore companies, financials, competitive gaps, and GTM strategy.</div>
+    </div>
+    <div class="segment-grid">
+      <div class="segment-tile star" onclick="openSegment('storage')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><rect x="6" y="14" width="36" height="20" rx="4" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><circle cx="24" cy="24" r="6" stroke="#6366f1" stroke-width="2" fill="white"/><circle cx="24" cy="24" r="2" fill="#6366f1"/><line x1="30" y1="24" x2="38" y2="24" stroke="#6366f1" stroke-width="1.5"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">3 companies</span>
+            <span class="tile-high-count">2 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">Storage Media (HDD)</div>
+        <div class="tile-desc">Companies where HAMR recording media materials are the key competitive battleground. Toshiba and WDC trail Seagate by 2-3 years. Materials science is the competitive moat.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+      <div class="segment-tile star" onclick="openSegment('photonics')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><circle cx="24" cy="24" r="8" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><circle cx="24" cy="24" r="3" fill="#6366f1"/><line x1="24" y1="4" x2="24" y2="14" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="24" y1="34" x2="24" y2="44" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="4" y1="24" x2="14" y2="24" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="34" y1="24" x2="44" y2="24" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="10" y1="10" x2="17" y2="17" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="31" y1="31" x2="38" y2="38" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="38" y1="10" x2="31" y2="17" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/><line x1="17" y1="31" x2="10" y2="38" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">3 companies</span>
+            <span class="tile-high-count">2 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">Photonics / Optical</div>
+        <div class="tile-desc">Matterstack's core domain. Photonic compute is Stefano Martiniani's primary focus. AI data center interconnect driving 60%+ growth. Novel optical materials needed.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+      <div class="segment-tile star" onclick="openSegment('nand')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><rect x="10" y="8" width="28" height="32" rx="3" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><rect x="15" y="13" width="18" height="4" rx="1" fill="#c7d2fe"/><rect x="15" y="19" width="18" height="4" rx="1" fill="#c7d2fe"/><rect x="15" y="25" width="18" height="4" rx="1" fill="#c7d2fe"/><rect x="15" y="31" width="18" height="4" rx="1" fill="#c7d2fe"/><line x1="14" y1="40" x2="14" y2="44" stroke="#6366f1" stroke-width="1.5"/><line x1="20" y1="40" x2="20" y2="44" stroke="#6366f1" stroke-width="1.5"/><line x1="28" y1="40" x2="28" y2="44" stroke="#6366f1" stroke-width="1.5"/><line x1="34" y1="40" x2="34" y2="44" stroke="#6366f1" stroke-width="1.5"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">4 companies</span>
+            <span class="tile-high-count">2 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">NAND Flash / SSD</div>
+        <div class="tile-desc">Racing to 300+ layer 3D NAND; an extreme materials challenge in high-aspect-ratio etching and novel dielectrics. AI-driven memory demand surging.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+      <div class="segment-tile star" onclick="openSegment('fabs')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><rect x="8" y="20" width="32" height="20" rx="2" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><rect x="12" y="12" width="8" height="8" rx="1" stroke="#6366f1" stroke-width="1.5" fill="white"/><rect x="28" y="12" width="8" height="8" rx="1" stroke="#6366f1" stroke-width="1.5" fill="white"/><rect x="14" y="26" width="6" height="6" rx="1" fill="#c7d2fe"/><rect x="22" y="26" width="6" height="6" rx="1" fill="#c7d2fe"/><rect x="30" y="26" width="6" height="6" rx="1" fill="#c7d2fe"/><line x1="16" y1="8" x2="16" y2="12" stroke="#6366f1" stroke-width="1.5"/><line x1="32" y1="8" x2="32" y2="12" stroke="#6366f1" stroke-width="1.5"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">4 companies</span>
+            <span class="tile-high-count">2 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">Fabs (Foundries)</div>
+        <div class="tile-desc">Samsung and Intel spending $15-25B+ annually but failing to close the gap with TSMC (71% share). Yield at advanced nodes = materials problem.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+      <div class="segment-tile star" onclick="openSegment('power')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><path d="M28 6L16 26H24L20 42L36 20H26L28 6Z" stroke="#6366f1" stroke-width="2" fill="#eef2ff" stroke-linejoin="round"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">4 companies</span>
+            <span class="tile-high-count">3 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">Power Semi (SiC/GaN)</div>
+        <div class="tile-desc">SiC crystal growth and defect reduction is THE materials science problem. Wolfspeed bankrupt with best IP. Chinese competitors drove SiC wafer prices down 30%.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+      <div class="segment-tile star" onclick="openSegment('quantum')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><circle cx="24" cy="24" r="4" fill="#6366f1"/><ellipse cx="24" cy="24" rx="18" ry="8" stroke="#6366f1" stroke-width="1.5" fill="none" transform="rotate(0 24 24)"/><ellipse cx="24" cy="24" rx="18" ry="8" stroke="#6366f1" stroke-width="1.5" fill="none" transform="rotate(60 24 24)"/><ellipse cx="24" cy="24" rx="18" ry="8" stroke="#6366f1" stroke-width="1.5" fill="none" transform="rotate(-60 24 24)"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">3 companies</span>
+            <span class="tile-high-count">1 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">Quantum Computing</div>
+        <div class="tile-desc">Pre-revenue but MATERIALS-DEFINED. Every qubit technology is bottlenecked by materials quality. PsiQuantum (photonic) has direct Stefano contact.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+      <div class="segment-tile star" onclick="openSegment('other')">
+        <div class="tile-top">
+          <span class="tile-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;"><rect x="8" y="8" width="14" height="14" rx="3" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><rect x="26" y="8" width="14" height="14" rx="3" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><rect x="8" y="26" width="14" height="14" rx="3" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/><rect x="26" y="26" width="14" height="14" rx="3" stroke="#6366f1" stroke-width="2" fill="#c7d2fe"/><circle cx="33" cy="33" r="3" fill="#6366f1"/></svg></span>
+          <div class="tile-counts">
+            <span class="tile-count">6 companies</span>
+            <span class="tile-high-count">1 high priority</span>
+          </div>
+        </div>
+        <div class="tile-name">Other Segments</div>
+        <div class="tile-desc">Equipment companies are partners. Networking/Wireless have niche materials angles through compound semis and optical interconnect. Analog is mature silicon.</div>
+        <span class="tile-arrow">→</span>
+      </div>
+    </div>
+    </div><!-- end home-view-segments -->
+
+    <div id="home-view-network" style="display:none;">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Network Map — Warm Connections</div>
+      <div class="sec-title">Warm connection mapping</div>
+      <div class="sec-desc">Select a target company to see all contacts and which Primary team members can make introductions.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+      <div style="position:relative;max-width:240px;flex:1;">
+        <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text-faint);pointer-events:none;" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+        <input class="search-input" type="text" placeholder="Search companies..." oninput="filterNetworkList(this.value)" style="padding-left:30px;width:100%;" id="nm-search-home">
+      </div>
+      <div style="display:flex;gap:5px;" id="nm-tier-filters-home">
+        <button class="fpill active" onclick="filterNetworkTierHome('all')">All</button>
+        <button class="fpill" onclick="filterNetworkTierHome('high')">High priority</button>
+        <button class="fpill" onclick="filterNetworkTierHome('med')">Med</button>
+      </div>
+      <span style="font-size:11px;color:var(--text-muted);font-family:'DM Mono',monospace;margin-left:auto;" id="nm-count-home"></span>
+    </div>
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);min-height:500px;">
+      <div id="network-company-list-home" style="border-right:1px solid var(--border);max-height:650px;overflow-y:auto;background:var(--bg);"></div>
+      <div id="network-connections-panel-home" style="padding:24px 28px;">
+        <div class="nc-empty">Select a company to see contacts and warm intros</div>
+      </div>
+    </div>
+    </div><!-- end home-view-network -->
+
+  </div><!-- end view-home -->
+
+  <!-- COMPANY DETAIL PAGE -->
+  <div id="view-company-detail" style="display:none;">
+    <div class="breadcrumb" id="company-detail-breadcrumb"></div>
+    <div id="company-detail-content"></div>
+  </div>
+
+
+  <!-- SEGMENT VIEWS (one per segment, hidden by default) -->
+  <div id="view-storage" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">Storage Media (HDD)</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Section 01 — Storage Media</div>
+      <div class="sec-title">Hard drive manufacturers</div>
+      <div class="sec-desc">Companies where HAMR recording media materials are the key competitive battleground. Toshiba and WDC trail Seagate by 2-3 years. Materials science is the competitive moat.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-storage">
+          <button class="fpill active" onclick="toggleFilter('tier','all','storage')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','storage')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','storage')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','storage')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('storage')">
+        </div>
+        <span class="results-count" id="rc-storage">3 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-storage"></div>
+  </div>
+  <div id="view-nand" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">NAND Flash / SSD</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Section 02 — NAND Flash</div>
+      <div class="sec-title">Memory manufacturers</div>
+      <div class="sec-desc">Racing to 300+ layer 3D NAND; an extreme materials challenge in high-aspect-ratio etching and novel dielectrics. AI-driven memory demand surging.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-nand">
+          <button class="fpill active" onclick="toggleFilter('tier','all','nand')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','nand')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','nand')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','nand')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('nand')">
+        </div>
+        <span class="results-count" id="rc-nand">4 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-nand"></div>
+  </div>
+  <div id="view-fabs" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">Fabs (Foundries)</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Section 03 — Fabs</div>
+      <div class="sec-title">Chip manufacturers</div>
+      <div class="sec-desc">Samsung and Intel spending $15-25B+ annually but failing to close the gap with TSMC (71% share). Yield at advanced nodes = materials problem.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-fabs">
+          <button class="fpill active" onclick="toggleFilter('tier','all','fabs')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','fabs')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','fabs')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','fabs')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('fabs')">
+        </div>
+        <span class="results-count" id="rc-fabs">4 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-fabs"></div>
+  </div>
+  <div id="view-photonics" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">Photonics / Optical</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Section 02 — Photonics</div>
+      <div class="sec-title">Photonic component manufacturers</div>
+      <div class="sec-desc">Matterstack's core domain. Photonic compute is Stefano Martiniani's primary focus. AI data center interconnect driving 60%+ growth. Novel optical materials needed.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-photonics">
+          <button class="fpill active" onclick="toggleFilter('tier','all','photonics')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','photonics')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','photonics')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','photonics')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('photonics')">
+        </div>
+        <span class="results-count" id="rc-photonics">3 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-photonics"></div>
+  </div>
+  <div id="view-power" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">Power Semi (SiC/GaN)</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Section 05 — Power Semi</div>
+      <div class="sec-title">SiC & GaN power device manufacturers</div>
+      <div class="sec-desc">SiC crystal growth and defect reduction is THE materials science problem. Wolfspeed bankrupt with best IP. Chinese competitors drove SiC wafer prices down 30%.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-power">
+          <button class="fpill active" onclick="toggleFilter('tier','all','power')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','power')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','power')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','power')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('power')">
+        </div>
+        <span class="results-count" id="rc-power">4 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-power"></div>
+  </div>
+  <div id="view-quantum" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">Quantum Computing</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Section 06 — Quantum</div>
+      <div class="sec-title">Quantum computing companies</div>
+      <div class="sec-desc">Pre-revenue but MATERIALS-DEFINED. Every qubit technology is bottlenecked by materials quality. PsiQuantum (photonic) has direct Stefano contact.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-quantum">
+          <button class="fpill active" onclick="toggleFilter('tier','all','quantum')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','quantum')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','quantum')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','quantum')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('quantum')">
+        </div>
+        <span class="results-count" id="rc-quantum">3 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-quantum"></div>
+  </div>
+  <div id="view-other" style="display:none;">
+    <div class="breadcrumb">
+      <a onclick="goHome()">← All Segments</a>
+      <span>/</span>
+      <span style="color:var(--text-mid);font-weight:500;">Other Segments</span>
+    </div>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Sections 07-10 — Equipment, Networking, Wireless, Analog</div>
+      <div class="sec-title">Adjacent segments</div>
+      <div class="sec-desc">Equipment companies are partners. Networking/Wireless have niche materials angles through compound semis and optical interconnect. Analog is mature silicon.</div>
+    </div>
+    <div class="filter-area">
+      <div class="filter-row">
+        <span class="filter-group-label">Priority</span>
+        <div class="filter-pills" id="fp-tier-other">
+          <button class="fpill active" onclick="toggleFilter('tier','all','other')">All</button>
+          <button class="fpill" onclick="toggleFilter('tier','high','other')">High</button>
+          <button class="fpill" onclick="toggleFilter('tier','med','other')">Med</button>
+          <button class="fpill" onclick="toggleFilter('tier','low','other')">Low</button>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="search-row">
+        <div class="search-wrap">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+          <input class="search-input" type="text" placeholder="Search companies..." oninput="filterCompanies('other')">
+        </div>
+        <span class="results-count" id="rc-other">6 companies</span>
+      </div>
+    </div>
+    <div class="company-grid" id="grid-other"></div>
+  </div>
+
+
+
+</div>
+
+<script src="data.js"></script>
+<script>
+
+// After rendering, inject source buttons into detail rows
+function injectSources() {
+  // This runs after cards are rendered - we add src buttons to detail-val elements
+  // We do this via a MutationObserver or by hooking into card open
+}
+
+// Source popup positioning (same pattern as trend bubbles)
+document.addEventListener('mouseover', function(e) {
+  var btn = e.target.closest('.src-btn');
+  if (!btn) return;
+  var pop = btn.nextElementSibling;
+  if (!pop || !pop.classList.contains('src-pop')) return;
+  var rect = btn.getBoundingClientRect();
+  pop.style.display = 'block';
+  var top = rect.top - pop.offsetHeight - 8;
+  var left = rect.left - 20;
+  if (top < 8) top = rect.bottom + 8;
+  if (left + 320 > window.innerWidth - 16) left = window.innerWidth - 336;
+  if (left < 8) left = 8;
+  pop.style.top = top + 'px';
+  pop.style.left = left + 'px';
+});
+document.addEventListener('mouseout', function(e) {
+  var btn = e.target.closest('.src-btn');
+  if (!btn) return;
+  var pop = btn.nextElementSibling;
+  if (!pop) return;
+  var related = e.relatedTarget;
+  if (related && (related === pop || pop.contains(related))) return;
+  pop.style.display = 'none';
+});
+
+function faviconUrl(d){return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${d}&size=64`;}
+function initials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function tierLabel(t){return t==='high'?'High Priority':t==='med'?'Medium':'Low Priority';}
+
+
+function renderSignals(c, showTags) {
+  if (!c.signal_score && !c.competitive_distress) return '';
+  var dots = [1,2,3,4,5].map(function(n) {
+    return '<div class="sdot ' + (n <= c.signal_score ? 'filled' : 'empty') + '"></div>';
+  }).join('');
+  var reason = c.opp_reason || '';
+  var bubbleHtml = reason ? '<span class="opp-bubble"><span class="opp-bubble-text">' + reason + '</span></span>' : '';
+  var distress = c.competitive_distress || 0;
+  var distressReason = c.distress_reason || '';
+  var distressDots = [1,2,3,4,5].map(function(n) {
+    return '<div class="sdot ' + (n <= distress ? 'distress-filled' : 'empty') + '"></div>';
+  }).join('');
+  var dTags = '', oTags = '';
+  if (showTags) {
+    dTags = (c.distress_signals || []).map(function(s, i) {
+      var t = (c.distress_signal_types || [])[i] || 'neutral';
+      return '<span class="signal-tag ' + t + '">' + s + '</span>';
+    }).join('');
+    oTags = (c.signals || []).map(function(s, i) {
+      var t = (c.signal_types || [])[i] || 'neutral';
+      return '<span class="signal-tag ' + t + '">' + s + '</span>';
+    }).join('');
+  }
+  return '<div class="signal-section">' +
+    '<div class="signal-row"><span class="signal-label">Competitive distress</span>' +
+    '<span class="opp-dots-wrap"><div class="signal-dots">' + distressDots + '</div>' +
+    (distressReason ? '<span class="opp-bubble"><span class="opp-bubble-text">' + distressReason + '</span></span>' : '') +
+    '</span>' + dTags + '</div>' +
+    '<div class="signal-row"><span class="signal-label">Opportunity score</span><span class="opp-dots-wrap"><div class="signal-dots">' + dots + '</div>' + bubbleHtml + '</span>' + oTags + '</div>' +
+    '</div>';
+}
+function renderSignalDetail(c) {
+  var html = '';
+  var ds = (c.distress_signals || []);
+  var os = (c.signals || []);
+  if (!ds.length && !os.length) return '';
+  html += '<div class="detail-section"><div class="detail-section-title">Signal Intelligence</div>';
+  if (ds.length) {
+    html += '<div style="margin-bottom:10px;"><div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;font-weight:600;">Competitive Distress Signals</div><div class="signal-tags">';
+    ds.forEach(function(s, i) {
+      var t = (c.distress_signal_types || [])[i] || 'neutral';
+      html += '<span class="signal-tag ' + t + '">' + s + '</span>';
+    });
+    html += '</div></div>';
+  }
+  if (os.length) {
+    html += '<div><div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;font-weight:600;">Opportunity Signals</div><div class="signal-tags">';
+    os.forEach(function(s, i) {
+      var t = (c.signal_types || [])[i] || 'neutral';
+      html += '<span class="signal-tag ' + t + '">' + s + '</span>';
+    });
+    html += '</div></div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderCard(c,idx,section){
+  const allTags=c.tags.map(t=>`<span class="tag ${t.c}" title="${(t.tip||t.t).replace(/"/g,'&quot;')}">${t.t}</span>`).join('')||'<span class="tag neutral">Pending</span>';
+  const contacts=c.contacts||[];
+  const cc=contacts.filter(ct=>ct.connections&&ct.connections.length>0);
+  const nd=cc.slice(0,3).flatMap(ct=>ct.connections).slice(0,3).map(n=>`<div class="ndot">${n.person.split(' ').map(w=>w[0]).join('')}</div>`).join('');
+  const nl=cc.length>0?`${cc.length} contact${cc.length>1?'s':''} with connections`:'No connections mapped';
+  const ds=(c.sections||c.detail_sections||[]).map(sec=>{
+    const rows=sec.rows.map(r=>`<div class="detail-row"><span class="detail-label">${r[0]}</span><div class="detail-val">${r[1]}</div></div>`).join('');
+    return `<div class="detail-section"><div class="detail-section-title">${sec.title}</div><div class="detail-rows">${rows}</div></div>`;
+  }).join('');
+  const cs=contacts.length>0?contacts.map(ct=>{
+    const tl=ct.type==='technical'?'Technical Champion':'Decision Maker';
+    const liLink=ct.linkedin?`<a href="${ct.linkedin}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="margin-left:6px;color:var(--accent);font-size:11px;text-decoration:none;vertical-align:middle;" title="LinkedIn">in</a>`:'';
+    const cr=ct.connections&&ct.connections.length>0?ct.connections.map(cn=>`<div class="contact-conn-row"><div class="conn-avatar">${cn.person.split(' ').map(w=>w[0]).join('')}</div><span class="conn-name">${cn.person}</span><span style="font-size:10px;color:var(--text-faint);margin-left:2px;">can intro</span><span class="conn-strength ${cn.strength}">${cn.strength==='warm'?'Warm':'Possible'}</span></div>`).join(''):`<div class="contact-conn-row"><span class="conn-none">No Primary connections mapped yet</span></div>`;
+    return `<div class="contact-card"><div class="contact-card-top"><div class="contact-avatar">${ct.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div class="contact-info"><div class="contact-name">${ct.name}${liLink}<span class="contact-type-badge ${ct.type}">${tl}</span></div><div class="contact-title">${ct.title}</div></div></div><div class="contact-connections">${cr}</div></div>`;
+  }).join(''):`<div class="placeholder-note">No contacts mapped yet; use Clay + LinkedIn to identify R&D / CTO personas.</div>`;
+  return `<div class="company-card" id="card-${section}-${idx}" data-tier="${c.tier}" data-seg="${section}" data-idx="${idx}">
+    <div class="card-tier-bar ${c.tier}"></div>
+    <div class="card-body" onclick="openCompanyDetail(this.closest('.company-card').dataset.seg, this.closest('.company-card').dataset.idx)" style="cursor:pointer;">
+      <div class="card-top">
+        <div class="card-identity">
+          <img class="card-favicon" src="${faviconUrl(c.domain)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="card-favicon-fallback" style="display:none">${initials(c.name)}</div>
+          <div><div class="card-name">${c.name}</div><div class="card-domain">${c.domain}</div></div>
+        </div>
+        <span class="tier-badge ${c.tier}">${tierLabel(c.tier)}</span>${c.rank ? `<span style="font-size:9px;color:var(--text-faint);font-family:'DM Mono',monospace;margin-left:6px;">#${c.rank}/${c.rank_total}</span>` : ""}
+      </div>
+      <div class="card-category">${c.subtitle || c.category}</div>
+      <div class="card-tags">${allTags}</div>
+      ${renderSignals(c)}
+    </div>
+    <div class="card-footer">
+      <div class="card-network"><div style="display:flex">${nd}</div><span style="margin-left:${cc.length>0?'6':'0'}px">${nl}</span></div>
+      <div class="card-expand-btn" onclick="event.stopPropagation();toggleCard('card-${section}-${idx}')">Details<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="2,4 6,8 10,4"/></svg></div>
+    </div>
+    <div class="detail-panel"><div class="detail-inner">${ds}${renderSignalDetail(c)}<div class="detail-section"><div class="detail-section-title">Network Connections</div>${cs}</div></div></div>
+  </div>`;
+}
+
+function toggleCard(id){const c=document.getElementById(id);if(c)c.classList.toggle('open');}
+
+const filterState={};
+SEGMENTS.forEach(s=>{filterState[s.id]={tier:'all'};});
+
+function toggleFilter(type,val,section){
+  filterState[section][type]=val;
+  const g=document.getElementById(`fp-${type}-${section}`);
+  if(g)g.querySelectorAll('.fpill').forEach(p=>{
+    const pv=p.textContent.trim().toLowerCase();
+    p.classList.toggle('active',pv===val||(val==='all'&&pv==='all'));
+  });
+  filterCompanies(section);
+}
+
+function filterCompanies(section){
+  const f=filterState[section];
+  const view=document.getElementById(`view-${section}`);
+  const se=view?view.querySelector('.search-input'):null;
+  const sv=se?se.value.toLowerCase():'';
+  const seg=SEGMENTS.find(s=>s.id===section);
+  if(!seg)return;
+  let v=0;
+  seg.companies.forEach((c,i)=>{
+    const card=document.getElementById(`card-${section}-${i}`);
+    if(!card)return;
+    let show=true;
+    if(f.tier!=='all'&&c.tier!==f.tier)show=false;
+    if(sv&&!c.name.toLowerCase().includes(sv)&&!c.domain.toLowerCase().includes(sv)&&!c.category.toLowerCase().includes(sv))show=false;
+    card.style.display=show?'':'none';
+    if(show)v++;
+  });
+  const rc=document.getElementById(`rc-${section}`);
+  if(rc)rc.textContent=`${v} ${v===1?'company':'companies'}`;
+}
+
+function openSegment(id){
+  var cd=document.getElementById('view-company-detail');if(cd)cd.style.display='none';
+  document.getElementById('view-home').style.display='none';
+  SEGMENTS.forEach(s=>{document.getElementById(`view-${s.id}`).style.display=s.id===id?'block':'none';});
+  window.scrollTo(0,0);
+}
+
+function goHome(){
+  var cd=document.getElementById('view-company-detail');if(cd)cd.style.display='none';
+  document.getElementById('view-home').style.display='block';
+  SEGMENTS.forEach(s=>{document.getElementById(`view-${s.id}`).style.display='none';});
+  window.scrollTo(0,0);
+}
+
+
+// Inject mock Primary team contacts into companies
+const PRIMARY_TEAM = [
+  {name:'Jason Gelman', title:'GTM Operating Partner', initials:'JG'},
+  {name:'Charles Holley', title:'GTM Manager', initials:'CH'},
+  {name:'Gaby Lorenzi', title:'Investor', initials:'GL'},
+  {name:'Alex Giles', title:'Associate', initials:'AG'},
+];
+
+// Apply contacts to segments — merge with CSV-imported contacts, dedup by name
+SEGMENTS.forEach(seg => {
+  seg.companies.forEach(co => {
+    if(CONTACT_MAP[co.name]) {
+      const existing = co.contacts || [];
+      const mapped = CONTACT_MAP[co.name];
+      const names = new Set(mapped.map(c => c.name));
+      const merged = [...mapped, ...existing.filter(c => !names.has(c.name))];
+      co.contacts = merged;
+    }
+    // Ensure every contact has at least one connection (demo mode)
+    (co.contacts || []).forEach(ct => {
+      if (!ct.connections || ct.connections.length === 0) {
+        ct.connections = [{person: PRIMARY_TEAM[Math.floor(Math.random()*PRIMARY_TEAM.length)], strength: 'possible'}];
+      }
+    });
+  });
+});
+
+// Init: render all grids
+SEGMENTS.forEach(seg=>{
+  const el=document.getElementById(`grid-${seg.id}`);
+  if(el)el.innerHTML=seg.companies.map((c,i)=>renderCard(c,i,seg.id)).join('');
+});
+
+// NETWORK MAP
+let nmTierFilter = 'all';
+let nmSearch = '';
+
+function getAllCompaniesFlat() {
+  const all = [];
+  SEGMENTS.forEach(seg => seg.companies.forEach(co => {
+    all.push({...co, segment: seg.label});
+  }));
+  return all;
+}
+
+function getNetworkCompanies() {
+  return getAllCompaniesFlat().filter(c => {
+    if(!(c.contacts && c.contacts.length > 0)) return false;
+    if(nmTierFilter !== 'all' && c.tier !== nmTierFilter) return false;
+    if(nmSearch && !c.name.toLowerCase().includes(nmSearch) && !c.category.toLowerCase().includes(nmSearch)) return false;
+    return true;
+  });
+}
+
+function filterNetworkTier(tier) {
+  nmTierFilter = tier;
+  document.querySelectorAll('#nm-tier-filters .fpill').forEach(p => {
+    const val = p.textContent.trim() === 'All' ? 'all' : p.textContent.trim() === 'High priority' ? 'high' : 'med';
+    p.classList.toggle('active', val === tier);
+  });
+  renderNetworkMap();
+}
+
+function filterNetworkList(val) {
+  nmSearch = val.toLowerCase();
+  renderNetworkMap();
+}
+
+function renderNetworkMap() {
+  const list = document.getElementById('network-company-list');
+  const companies = getNetworkCompanies();
+  document.getElementById('nm-count').textContent = `${companies.length} companies`;
+  const tierOrder = {high:0, med:1, low:2};
+  companies.sort((a,b) => {
+    const aConn = a.contacts.some(ct=>(ct.connections||[]).length>0) ? 0 : 1;
+    const bConn = b.contacts.some(ct=>(ct.connections||[]).length>0) ? 0 : 1;
+    if(aConn !== bConn) return aConn - bConn;
+    return (tierOrder[a.tier]||2) - (tierOrder[b.tier]||2);
+  });
+  _nmCompanies = companies;
+  list.innerHTML = companies.map((c, i) => {
+    const hasConn = c.contacts.some(ct=>(ct.connections||[]).length>0);
+    const connCount = c.contacts.reduce((s,ct)=>s+(ct.connections||[]).length,0);
+    return `<div class="network-person-card ${i===0?'active':''}" onclick="selectNetworkCompany('${c.name.replace(/'/g,"\\'")}',this)" id="nmc-${i}">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="${faviconUrl(c.domain)}" style="width:20px;height:20px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.opacity=0">
+        <div style="flex:1;min-width:0;">
+          <div class="npc-name" style="font-size:12px;">${c.name}</div>
+          <div class="npc-title">${c.segment}</div>
+        </div>
+        <span class="tier-badge ${c.tier}" style="font-size:8px;padding:2px 5px;">${c.tier}</span>
+      </div>
+      <div class="npc-count">${hasConn ? connCount+' warm intro'+(connCount!==1?'s':'') : 'No intros mapped'}</div>
+    </div>`;
+  }).join('');
+  if(companies.length > 0) { selectNetworkCompany(companies[0].name); document.querySelector('[data-nm-item]').classList.add('nm-active'); document.querySelector('[data-nm-item]').style.background='var(--accent-light)'; document.querySelector('[data-nm-item]').style.borderLeftColor='var(--accent)'; }
+  else document.getElementById('network-connections-panel').innerHTML = '<div class="nc-empty">No companies match filter</div>';
+}
+
+let _nmCompanies = [];
+function selectNetworkCompanyByIdx(idx) {
+  const company = _nmCompanies[parseInt(idx)];
+  if(company) selectNetworkCompany(company.name);
+}
+function selectNetworkCompany(name, clickedEl) {
+  document.querySelectorAll('.network-person-card').forEach(el => el.classList.remove('active'));
+  if(clickedEl) clickedEl.classList.add('active');
+  else document.querySelectorAll('.network-person-card').forEach(el => {
+    if(el.querySelector('.npc-name').textContent === name) el.classList.add('active');
+  });
+  const company = getAllCompaniesFlat().find(c=>c.name===name);
+  const panel = document.getElementById('network-connections-panel');
+  if(!company) return;
+  const contacts = company.contacts || [];
+  panel.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+      <img src="${faviconUrl(company.domain)}" style="width:32px;height:32px;border-radius:7px;border:1px solid var(--border);" onerror="this.style.opacity=0">
+      <div style="flex:1;">
+        <div style="font-size:16px;font-weight:600;color:var(--text);">${company.name}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:1px;">${company.category}</div>
+      </div>
+      <span class="tier-badge ${company.tier}">${tierLabel(company.tier)}</span>
+    </div>
+    ${contacts.length === 0
+      ? '<div class="nc-empty">No contacts mapped yet for '+company.name+'.</div>'
+      : contacts.map(ct => {
+          const typeLabel = ct.type === 'technical' ? 'Technical Champion' : 'Decision Maker';
+          const liLink = ct.linkedin ? `<a href="${ct.linkedin}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="margin-left:6px;color:var(--accent);font-size:11px;text-decoration:none;vertical-align:middle;" title="LinkedIn">in</a>` : '';
+          const conns = ct.connections || [];
+          return `
+          <div class="contact-card" style="margin-bottom:10px;">
+            <div class="contact-card-top">
+              <div class="contact-avatar">${ct.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+              <div class="contact-info">
+                <div class="contact-name">${ct.name}${liLink}<span class="contact-type-badge ${ct.type}">${typeLabel}</span></div>
+                <div class="contact-title">${ct.title}</div>
+              </div>
+            </div>
+            <div class="contact-connections">
+              ${conns.length > 0
+                ? conns.map(cn=>`
+                  <div class="contact-conn-row">
+                    <div class="conn-avatar">${cn.person.split(' ').map(w=>w[0]).join('')}</div>
+                    <span class="conn-name">${cn.person}</span>
+                    <span style="font-size:10px;color:var(--text-faint);margin-left:2px;">can intro</span>
+                    <span class="conn-strength ${cn.strength}">${cn.strength==='warm'?'Warm':'Possible'}</span>
+                  </div>`).join('')
+                : '<div class="contact-conn-row"><span class="conn-none">No Primary connections mapped yet</span></div>'
+              }
+            </div>
+          </div>`;
+        }).join('')
+    }`;
+}
+
+function openNetworkMap() {
+  document.getElementById('view-home').style.display='none';
+  SEGMENTS.forEach(s=>{document.getElementById('view-'+s.id).style.display='none';});
+  document.getElementById('view-network').style.display='block';
+  renderNetworkMap();
+  window.scrollTo(0,0);
+}
+
+
+function switchHomeTab(tab) {
+  document.getElementById('home-tab-segments').classList.toggle('active', tab === 'segments');
+  document.getElementById('home-tab-network').classList.toggle('active', tab === 'network');
+  document.getElementById('home-view-segments').style.display = tab === 'segments' ? 'block' : 'none';
+  document.getElementById('home-view-network').style.display = tab === 'network' ? 'block' : 'none';
+  if(tab === 'network') renderNetworkMapHome();
+}
+
+function filterNetworkTierHome(tier) {
+  nmTierFilter = tier;
+  document.querySelectorAll('#nm-tier-filters-home .fpill').forEach(p => {
+    const val = p.textContent.trim() === 'All' ? 'all' : p.textContent.trim() === 'High priority' ? 'high' : 'med';
+    p.classList.toggle('active', val === tier);
+  });
+  renderNetworkMapHome();
+}
+
+function renderNetworkMapHome() {
+  const list = document.getElementById('network-company-list-home');
+  const companies = getNetworkCompanies();
+  document.getElementById('nm-count-home').textContent = `${companies.length} companies`;
+  const tierOrder = {high:0, med:1, low:2};
+  companies.sort((a,b) => {
+    const aConn = a.contacts.some(ct=>(ct.connections||[]).length>0) ? 0 : 1;
+    const bConn = b.contacts.some(ct=>(ct.connections||[]).length>0) ? 0 : 1;
+    if(aConn !== bConn) return aConn - bConn;
+    return (tierOrder[a.tier]||2) - (tierOrder[b.tier]||2);
+  });
+  _nmCompanies = companies;
+  list.innerHTML = companies.map((c, i) => {
+    const hasConn = c.contacts.some(ct=>(ct.connections||[]).length>0);
+    const connCount = c.contacts.reduce((s,ct)=>s+(ct.connections||[]).length,0);
+    return `<div style="padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s;${i===0?'background:var(--accent-light);border-left:2px solid var(--accent);':'border-left:2px solid transparent;'}" onmouseenter="this.style.background='var(--surface2)'" onmouseleave="if(!this.classList.contains('nm-active-home'))this.style.background=''" data-nmh-idx="${i}" onclick="document.querySelectorAll('[data-nmh-idx]').forEach(el=>{el.style.background='';el.style.borderLeftColor='transparent';el.classList.remove('nm-active-home');});this.style.background='var(--accent-light)';this.style.borderLeftColor='var(--accent)';this.classList.add('nm-active-home');selectNetworkCompanyHome(${i})">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="${faviconUrl(c.domain)}" style="width:24px;height:24px;border-radius:5px;border:1px solid var(--border);flex-shrink:0;" onerror="this.style.opacity=0">
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+            <span style="font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.name}</span>
+            <span class="tier-badge ${c.tier}" style="font-size:7px;padding:2px 5px;flex-shrink:0;">${c.tier}</span>
+          </div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.category}</div>
+        </div>
+      </div>
+      <div style="font-size:10px;font-family:'DM Mono',monospace;color:${hasConn?'var(--accent)':'var(--text-faint)'};margin-top:5px;font-weight:500;">${hasConn ? connCount+' warm intro'+(connCount!==1?'s':'') : 'No intros mapped'}</div>
+    </div>`;
+  }).join('');
+  if(companies.length > 0) selectNetworkCompanyHome(0);
+  else document.getElementById('network-connections-panel-home').innerHTML = '<div class="nc-empty">No companies match filter</div>';
+}
+
+function selectNetworkCompanyHome(idx) {
+  const company = _nmCompanies[idx];
+  const panel = document.getElementById('network-connections-panel-home');
+  if(!company) return;
+  const contacts = company.contacts || [];
+  panel.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+      <img src="${faviconUrl(company.domain)}" style="width:32px;height:32px;border-radius:7px;border:1px solid var(--border);" onerror="this.style.opacity=0">
+      <div style="flex:1;">
+        <div style="font-size:16px;font-weight:600;color:var(--text);">${company.name}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:1px;">${company.category}</div>
+      </div>
+      <span class="tier-badge ${company.tier}">${tierLabel(company.tier)}</span>
+    </div>
+    ${contacts.length === 0
+      ? '<div class="nc-empty">No contacts mapped yet for '+company.name+'.</div>'
+      : contacts.map(ct => {
+          const typeLabel = ct.type === 'technical' ? 'Technical Champion' : 'Decision Maker';
+          const liLink = ct.linkedin ? '<a href="'+ct.linkedin+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="margin-left:6px;color:var(--accent);font-size:11px;text-decoration:none;vertical-align:middle;" title="LinkedIn">in</a>' : '';
+          const conns = ct.connections || [];
+          return '<div class="contact-card" style="margin-bottom:10px;"><div class="contact-card-top"><div class="contact-avatar">'+ct.name.split(' ').map(w=>w[0]).join('').slice(0,2)+'</div><div class="contact-info"><div class="contact-name">'+ct.name+liLink+'<span class="contact-type-badge '+ct.type+'">'+typeLabel+'</span></div><div class="contact-title">'+ct.title+'</div></div></div><div class="contact-connections">'+(conns.length > 0 ? conns.map(cn=>'<div class="contact-conn-row"><div class="conn-avatar">'+cn.person.split(' ').map(w=>w[0]).join('')+'</div><span class="conn-name">'+cn.person+'</span><span style="font-size:10px;color:var(--text-faint);margin-left:2px;">can intro</span><span class="conn-strength '+cn.strength+'">'+(cn.strength==='warm'?'Warm':'Possible')+'</span></div>').join('') : '<div class="contact-conn-row"><span class="conn-none">No Primary connections mapped yet</span></div>')+'</div></div>';
+        }).join('')
+    }`;
+}
+
+
+function openCompanyDetail(segId, companyIdx) {
+  var seg = SEGMENTS.find(function(s){return s.id === segId;});
+  if(!seg) return;
+  var c = seg.companies[parseInt(companyIdx)];
+  if(!c) return;
+  document.getElementById('view-home').style.display='none';
+  SEGMENTS.forEach(function(s){var el=document.getElementById('view-'+s.id);if(el)el.style.display='none';});
+  document.getElementById('view-company-detail').style.display='block';
+
+  document.getElementById('company-detail-breadcrumb').innerHTML =
+    '<a onclick="goHome()">All Segments</a><span>/</span>' +
+    '<a onclick="openSegment(\'' + segId + '\')">' + seg.label + '</a><span>/</span>' +
+    '<span style="color:var(--text-mid);font-weight:500;">' + c.name + '</span>';
+
+  var allTags = c.tags.map(function(t){return '<span class="tag '+t.c+'" title="'+(t.tip||t.t).replace(/"/g,'&quot;')+'">'+t.t+'</span>';}).join('');
+
+  var sections = (c.sections||c.detail_sections||[]).map(function(sec){
+    var rows = sec.rows.map(function(r){
+      var srcKey = c.name + '|' + sec.title + '|' + r[0];
+      var srcHtml = '';
+      if (ROW_SOURCES[srcKey]) {
+        srcHtml = ' <span class="src-wrap"><span class="src-btn">src</span><span class="src-pop"><span class="src-pop-text">' + ROW_SOURCES[srcKey] + '</span></span></span>';
+      }
+      return '<div class="detail-row"><span class="detail-label">'+r[0]+'</span><div class="detail-val">'+r[1]+srcHtml+'</div></div>';
+    }).join('');
+    return '<div class="detail-section"><div class="detail-section-title">'+sec.title+'</div><div class="detail-rows">'+rows+'</div></div>';
+  }).join('');
+
+  var contacts = c.contacts || [];
+  var contactHtml;
+  if(contacts.length > 0) {
+    contactHtml = contacts.map(function(ct){
+      var tl = ct.type==='technical' ? 'Technical Champion' : 'Decision Maker';
+      var liLink = ct.linkedin ? '<a href="'+ct.linkedin+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="margin-left:6px;color:var(--accent);font-size:11px;text-decoration:none;vertical-align:middle;" title="LinkedIn">in</a>' : '';
+      var conns = ct.connections && ct.connections.length > 0
+        ? ct.connections.map(function(cn){return '<div class="contact-conn-row"><div class="conn-avatar">'+cn.person.split(' ').map(function(w){return w[0];}).join('')+'</div><span class="conn-name">'+cn.person+'</span><span style="font-size:10px;color:var(--text-faint);margin-left:2px;">can intro</span><span class="conn-strength '+cn.strength+'">'+(cn.strength==='warm'?'Warm':'Possible')+'</span></div>';}).join('')
+        : '<div class="contact-conn-row"><span class="conn-none">No Primary connections mapped yet</span></div>';
+      return '<div class="contact-card"><div class="contact-card-top"><div class="contact-avatar">'+ct.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2)+'</div><div class="contact-info"><div class="contact-name">'+ct.name+liLink+'<span class="contact-type-badge '+ct.type+'">'+tl+'</span></div><div class="contact-title">'+ct.title+'</div></div></div><div class="contact-connections">'+conns+'</div></div>';
+    }).join('');
+  } else {
+    contactHtml = '<div class="placeholder-note">No contacts mapped yet; use Clay + LinkedIn to identify R&D leadership / CTO personas.</div>';
+  }
+
+  var overviewHtml = c.overview ? '<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:24px;"><div style="font-size:9px;font-family:\'DM Mono\',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;display:flex;align-items:center;gap:8px;">Intelligence Summary<span style="flex:1;height:1px;background:var(--border);"></span></div><div style="font-size:12px;color:var(--text-mid);line-height:1.65;">'+c.overview+'</div></div>' : '';
+
+  document.getElementById('company-detail-content').innerHTML =
+    '<div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;">' +
+      '<img src="'+faviconUrl(c.domain)+'" style="width:48px;height:48px;border-radius:10px;border:1px solid var(--border);" onerror="this.style.opacity=0">' +
+      '<div style="flex:1;">' +
+        '<div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">' +
+          '<span style="font-size:22px;font-weight:600;color:var(--text);">'+c.name+'</span>' +
+          '<span class="tier-badge '+c.tier+'">'+tierLabel(c.tier)+'</span>'+(c.rank ? '<span style="font-size:11px;color:var(--text-muted);font-family:\'DM Mono\',monospace;margin-left:8px;">#'+c.rank+' of '+c.rank_total+'</span>' : '') +
+        '</div>' +
+        '<div style="font-size:12px;color:var(--text-faint);font-family:\'DM Mono\',monospace;margin-bottom:8px;">'+c.domain+'</div>' +
+        '<div style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:10px;">'+(c.subtitle||'')+'</div>' +
+        '<div style="display:flex;gap:4px;flex-wrap:wrap;">'+allTags+'</div>'+
+      renderSignals(c, true) +
+      '</div>' +
+    '</div>' +
+    overviewHtml +
+    (c.gtm_thesis ? '<div class="gtm-thesis-box" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:24px;"><div style="font-size:9px;font-family:\'DM Mono\',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;display:flex;align-items:center;gap:8px;">GTM Thesis<span style="flex:1;height:1px;background:var(--border);"></span></div><div style="font-size:12px;color:var(--text-mid);line-height:1.65;">'+c.gtm_thesis+'</div></div>' : '') +
+    sections +
+    '<div class="detail-section"><div class="detail-section-title">Network Connections</div>'+contactHtml+'</div>' +
+    (c.sources && c.sources.length > 0 ? '<div class="detail-section" style="margin-top:24px;"><div class="detail-section-title">Sources & References</div><div style="display:flex;flex-direction:column;gap:6px;">' + c.sources.map(function(s) { return '<div style="display:flex;align-items:flex-start;gap:8px;"><span style="color:var(--accent);font-size:10px;margin-top:2px;">●</span><a href="' + s.url + '" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-mid);text-decoration:none;line-height:1.5;border-bottom:1px dashed var(--border-mid);">' + s.name + '</a></div>'; }).join('') + '</div></div>' : '');
+
+  window.scrollTo(0,0);
+}
+
+
+// Trend bubble positioning
+document.addEventListener('mouseover', function(e) {
+  var wrap = e.target.closest('.trend-wrap');
+  if (!wrap) return;
+  var bubble = wrap.querySelector('.trend-bubble');
+  if (!bubble) return;
+  var arrow = wrap.querySelector('.trend-arrow');
+  if (!arrow) return;
+  var rect = arrow.getBoundingClientRect();
+  bubble.style.display = 'block';
+  // Position above the arrow, but check if it would go off-screen
+  var bh = bubble.offsetHeight;
+  var bw = bubble.offsetWidth;
+  var top = rect.top - bh - 8;
+  var left = rect.left - 20;
+  // If would go above viewport, show below instead
+  if (top < 8) top = rect.bottom + 8;
+  // If would go off right edge, shift left
+  if (left + bw > window.innerWidth - 16) left = window.innerWidth - bw - 16;
+  // If would go off left edge
+  if (left < 8) left = 8;
+  bubble.style.top = top + 'px';
+  bubble.style.left = left + 'px';
+});
+document.addEventListener('mouseout', function(e) {
+  var wrap = e.target.closest('.trend-wrap');
+  if (!wrap) return;
+  // Check if we're still within the wrap
+  var related = e.relatedTarget;
+  if (related && wrap.contains(related)) return;
+  var bubble = wrap.querySelector('.trend-bubble');
+  if (bubble) bubble.style.display = 'none';
+});
+
+
+// Opportunity score bubble positioning
+document.addEventListener('mouseover', function(e) {
+  var wrap = e.target.closest('.opp-dots-wrap');
+  if (!wrap) return;
+  var bubble = wrap.querySelector('.opp-bubble');
+  if (!bubble) return;
+  var rect = wrap.getBoundingClientRect();
+  bubble.style.display = 'block';
+  var top = rect.top - bubble.offsetHeight - 8;
+  var left = rect.left;
+  if (top < 8) top = rect.bottom + 8;
+  if (left + 360 > window.innerWidth - 16) left = window.innerWidth - 376;
+  if (left < 8) left = 8;
+  bubble.style.top = top + 'px';
+  bubble.style.left = left + 'px';
+});
+document.addEventListener('mouseout', function(e) {
+  var wrap = e.target.closest('.opp-dots-wrap');
+  if (!wrap) return;
+  var related = e.relatedTarget;
+  if (related && wrap.contains(related)) return;
+  var bubble = wrap.querySelector('.opp-bubble');
+  if (bubble) bubble.style.display = 'none';
+});
+
+</script>
+</body>
+</html>
